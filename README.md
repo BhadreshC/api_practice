@@ -21,8 +21,7 @@ Things you may want to cover:
 
 * Deployment instructions
 
-
-* AP
+* API
   https://rapidapi.com/blog/how-to-use-an-api-with-ruby/
   https://rapidapi.com/blog/how-to-test-an-api-with-ruby/
   https://rapidapi.com/blog/news-api-ruby-on-rails/

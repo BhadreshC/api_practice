@@ -1,39 +1,115 @@
 class TravelController < ApplicationController
-  require 'uri'
   def index
   end
 
   def search
-    countries = find_country(params[:country])
-    unless countries
+    @host = find_hostname(params[:hostname])
+    puts "-0------------"
+    puts params[:hostname]
+    puts "-0------------"
+    unless @host
       flash[:alert] = 'Country not found'
       return render action: :index
     end
-    @country = countries.first
-    # @weather = find_weather(@country['capital'], @country['alpha2Code'])
-    puts "------------------------"
-    puts @country['capital']
-    puts @country['alpha2Code']
-    puts "------------------------"
+    puts "----------------------"
+    puts "----------host_detail------------"
+    puts @host.as_json
+    puts "----------------------"
+    puts "----------------------"
+    if !params[:country].blank?
+      countries = find_country(params[:country])
+      unless countries
+        flash[:alert] = 'Country not found'
+        return render action: :index
+      end
+      @country = countries.first
+      # @weather = find_weather(@country['capital'], @country['alpha2Code'])
+      puts "------------------------"
+      puts @country['capital']
+      puts @country['alpha2Code']
+      puts "------------------------"
+    end
+  end
+
+  def view
+    @url = "https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/world"
+    response = Excon.get(
+      @url,
+      headers: {
+        'X-RapidAPI-Host' => URI.parse(@url).host,
+        'X-RapidAPI-Key' => ENV['RAPIDAPI_API_KEY']
+      }
+    )
+    return nil if response.status != 200
+    JSON.parse(response.body)
+    @data = JSON.parse(response.body).first
+    puts "----------view method api response----------------"
+    puts @data
+    puts "----------view method api response----------------"
+  end
+
+
+  def message
+    if !params[:category].blank?
+      @url = "https://ajith-messages.p.rapidapi.com/getMsgs?category=#{params[:category]}"
+      response = Excon.get(
+        @url, 
+        headers: {
+        'X-RapidAPI-Host' => URI.parse(@url).host,
+        'X-RapidAPI-Key' => ENV['RAPIDAPI_API_KEY']
+        }
+      )
+      return nil if response.status != 200
+      JSON.parse(response.body)
+      @msg = JSON.parse(response.body)
+      puts "---------------------"
+      puts @msg.as_json
+      puts "---------------------"
+      puts "---------------------"
+    end
+    puts "--------------------------------"
+    puts "--------------------------------"
+    puts "--------------------------------"
+  end
+
+  def match_schedule
+    puts "------------"
+    puts ENV['MATCH_SCHEDULE_API_KEY']
+    puts "------------"
+    @url = "https://cricapi.com/api/matchCalendar"
+    response = Excon.get(
+      @url,
+      headers: {
+        'apikey' => ENV['MATCH_SCHEDULE_API_KEY']
+      }
+    )
+    return nil if response.status != 200
+    JSON.parse(response.body)
+    @matches = JSON.parse(response.body)
+    puts "---------------------"
+    @match= @matches['data'].to_a
+    puts @match.as_json
+    puts "---------------------"
+    puts "---------------------"
   end
 
   private
   def request_api(url)
     puts "--------fetching api key------------"
     puts "--------fetching api key------------"
-    puts ENV.fetch('RAPIDAPI_API_KEY')
-    puts "--------fetching api key------------"
+    puts ENV['RAPIDAPI_API_KEY']
+    puts "--------fetching api keyy------------"
     puts "--------fetching api key------------"
 
-    
     response = Excon.get(
       url,
       headers: {
         'X-RapidAPI-Host' => URI.parse(url).host,
-        'X-RapidAPI-Key' => ENV.fetch('RAPIDAPI_API_KEY')
+        'X-RapidAPI-Key' => ENV['RAPIDAPI_API_KEY']
       }
     )
     puts "----------------------"
+    puts URI.parse(url).host
     puts "--------response body--------------"
     puts response.headers
     puts response.body
@@ -59,12 +135,25 @@ class TravelController < ApplicationController
     request_api(
       "https://community-open-weather-map.p.rapidapi.com/forecast?q=#{query}"
     )
-    puts "-00000000000000000000000D"
-    puts "-00000000000000000000000D"
-    puts query.as_json
-    puts "-00000000000000000000000D"
-    puts "-00000000000000000000000D"
-    puts "-00000000000000000000000D"
-
   end
+
+  def request_api_for_hotdetail(url)
+    response = Excon.get(
+      url,
+      headers: {
+        'X-RapidAPI-Host' => URI.parse(url).host,
+        'X-RapidAPI-Key' => ENV['RAPIDAPI_API_KEY']
+      }
+    )
+    return nil if response.status != 200
+    JSON.parse(response.body)
+  end
+
+  def find_hostname(hostname)
+    request_api_for_hotdetail("https://free-geo-ip.p.rapidapi.com/json/#{URI.encode(hostname)}")
+  end
+
 end
+
+# used api link
+# https://rapidapi.com/ajith/api/messages

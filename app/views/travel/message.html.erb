@@ -1,0 +1,12 @@
+<%= form_with(url: message_path, method: 'get', local: true) do %>
+  <p>Enter a category to get unlimited messages.Eg: Love,quotes,friendship,Good night,Good morning,funny,Birthday,Sad,Sweet,Random</p>
+  <div class="form-group">
+    <%= label_tag :category, 'Search host information '%>
+    <%= text_field_tag :category, params[:category], placeholder: 'Eg. Good night, quotes, Birthday', class: 'form-control' %>
+  </div>
+  <%= button_tag 'Search', class: 'btn btn-success btn-block' %>
+<% end %>
+
+<% if !params[:category].blank? %>
+  <p><%= @msg["Message"] %> </p>
+<% end %>

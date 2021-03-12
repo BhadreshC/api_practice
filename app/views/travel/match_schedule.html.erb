@@ -1,0 +1,6 @@
+<h4>UP COMMING MATCHES</h4>
+<% @match.each_with_index do |match, index| %>
+  <p><%= match["date"] %></p>
+  <p><%= match["name"] %></p>
+  <hr>
+<% end %>
