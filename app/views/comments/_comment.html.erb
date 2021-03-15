@@ -1,0 +1,10 @@
+<div class="media mb-3">
+  <div class="media-body">
+    <span class="text-muted">
+        <%= comment['by'] %> <%= time_ago_in_words(comment['time']) %> ago |
+        <%= link_to "#{comment.fetch('kids', []).count} responses", comment_path(comment['id']) %>
+    </span>
+    <p><%= sanitize comment['text'] %></p>
+  </div>
+</div>
+<hr>

@@ -23,7 +23,11 @@ module ApiPractice
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
-
+    # config.autoload_paths << Rails.root.join('lib')
+    puts "---------------Application#{config.root}--------------------------------------"
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.eager_load_paths += %W(#{config.root}/lib)
+    puts "-----------------LOADED Application done-----------------"
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

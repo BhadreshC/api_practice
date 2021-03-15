@@ -1,0 +1,12 @@
+<%= render partial: 'story', collection: @stories %>
+
+<nav>
+  <ul class="pagination justify-content-center">
+    <li class="page-item <%= 'disabled' if @start == 0 %>">
+      <%= link_to 'Previous', root_path(start: @start - @per_page), class: 'page-link' %>
+    </li>
+    <li class="page-item">
+      <%= link_to 'Next', root_path(start: @start + @per_page), class: 'page-link' %>
+    </li>
+  </ul>
+</nav>
