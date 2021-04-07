@@ -3,19 +3,19 @@
     end
 
     def search
-      @host = find_hostname(params[:hostname])
-      puts "-0------------"
-      puts params[:hostname]
-      puts "-0------------"
-      unless @host
-        flash[:alert] = 'Country not found'
-        return render action: :index
-      end
-      puts "----------------------"
-      puts "----------host_detail------------"
-      puts @host.as_json
-      puts "----------------------"
-      puts "----------------------"
+      # @host = find_hostname(params[:hostname])
+      # puts "-0------------"
+      # puts params[:hostname]
+      # puts "-0------------"
+      # unless @host
+      #   flash[:alert] = 'hostname not found'
+      #   return render action: :index
+      # end
+      # puts "----------------------"
+      # puts "----------host_detail------------"
+      # puts @host.as_json
+      # puts "----------------------"
+      # puts "----------------------"
       if !params[:country].blank?
         countries = find_country(params[:country])
         unless countries
@@ -144,7 +144,7 @@
       )
     end
 
-    def find_hostname(url)
+    def request_api_for_hotdetail(url)
       response = Excon.get(
         url,
         headers: {
@@ -157,7 +157,7 @@
     end
 
     def find_hostname(hostname)
-      find_hostname("https://free-geo-ip.p.rapidapi.com/json/#{URI.encode(hostname)}")
+      request_api_for_hotdetail("https://free-geo-ip.p.rapidapi.com/json/#{URI.encode(hostname)}")
     end
   end
 

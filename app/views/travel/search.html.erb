@@ -1,35 +1,16 @@
-<!-- <div class="container">
+<div class="container">
   <div class="row mt-5">
     <div class="col-lg-6">
       <h4>Country info</h4>
       <dl>
         <dt>Country</dt>
-        <dd><%#= @country['name'] %></dd>
+        <dd><%= @country['name'] %></dd>
         <dt>Capital</dt>
-        <dd><%#= @country['capital'] %></dd>
+        <dd><%= @country['capital'] %></dd>
         <dt>Currency</dt>
-        <dd><%#= @country['currencies'].join(', ') %></dd>
+        <dd><%= @country['currencies'].join(', ') %></dd>
         <dt>Timezone(s)</dt>
-        <dd><%#= @country['timezones'].join(', ') %></dd>
-      </dl>
-    </div>
-  </div>
-</div> -->
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-lg-6">
-      <h4>HostName  info</h4>
-      <dl>
-        <dt>Ip</dt>
-        <dd><%= @host['ip'] %></dd>
-        <dt>country_code</dt>
-        <dd><%= @host['country_code'] %></dd>
-        <dt>country_name</dt>
-        <dd><%= @host['country_name'] %></dd>
-        <dt>time_zone</dt>
-        <dd><%= @host['time_zone'] %></dd>
-        <dt>latitude</dt>
-        <dd><%= @host['latitude'] %></dd>
+        <dd><%= @country['timezones'].join(', ') %></dd>
       </dl>
     </div>
   </div>
@@ -37,3 +18,22 @@
 
 
 <!-- <button>click here to get world corona vaccine list</button> -->
+<!-- <div class="container">
+  <div class="row mt-5">
+    <div class="col-lg-6">
+      <h4>HostName  info</h4>
+      <dl>
+        <dt>Ip</dt>
+        <dd><%#= @host['ip'] %></dd>
+        <dt>country_code</dt>
+        <dd><%#= @host['country_code'] %></dd>
+        <dt>country_name</dt>
+        <dd><%#= @host['country_name'] %></dd>
+        <dt>time_zone</dt>
+        <dd><%#= @host['time_zone'] %></dd>
+        <dt>latitude</dt>
+        <dd><%#= @host['latitude'] %></dd>
+      </dl>
+    </div>
+  </div>
+</div> -->
