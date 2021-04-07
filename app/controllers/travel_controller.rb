@@ -144,7 +144,7 @@
       )
     end
 
-    def request_api_for_hotdetail(url)
+    def find_hostname(url)
       response = Excon.get(
         url,
         headers: {
@@ -157,7 +157,7 @@
     end
 
     def find_hostname(hostname)
-      request_api_for_hotdetail("https://free-geo-ip.p.rapidapi.com/json/#{URI.encode(hostname)}")
+      find_hostname("https://free-geo-ip.p.rapidapi.com/json/#{URI.encode(hostname)}")
     end
   end
 
